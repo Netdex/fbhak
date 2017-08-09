@@ -35,7 +35,7 @@ function dbinit(db, conf) {
 function fbinit(api, db, conf) {
     api.setOptions({
         updatePresence: true,
-        logLevel: conf.fbapi_log
+        logLevel: conf.fbapi.logging
     });
 
     let uid = api.getCurrentUserID();
@@ -86,7 +86,7 @@ function webapi(db, conf) {
         .use(express.static(path.join(__dirname, 'static')))
         .use('/data', api);
 
-    let listener = server.listen(conf.api.port, '0.0.0.0', function () {
+    let listener = server.listen(conf.server.port, '0.0.0.0', function () {
         debug("Started local express server");
     });
 

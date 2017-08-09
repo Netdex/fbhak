@@ -1,14 +1,16 @@
 {
-    "fb_state_conf": "fbstate.json",
-    "fbapi_log": "info",
+    "fbapi": {
+        "state_conf": "fbstate.json",
+        "logging": "info"
+    },
     "postgres": {
-        "user": "netdex",
+        "user": "user",
         "host": "localhost",
         "database": "fbhak",
         "password": "celery",
         "port": 5432
     },
-    "api": {
+    "server": {
         "port": 18002
     }
 }

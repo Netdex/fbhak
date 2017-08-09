@@ -13,9 +13,9 @@ const config = require('./config');
 debug.enabled = true;
 
 function fblogin(db) {
-    if (fs.existsSync(config.fb_state_conf)) {
-        debug(`Using existing session, delete ${config.fb_state_conf} to reset session`)
-        fbapi({ appState: JSON.parse(fs.readFileSync(config.fb_state_conf, 'utf8')) }, (err, api) => {
+    if (fs.existsSync(config.fbapi.state_conf)) {
+        debug(`Using existing session, delete ${config.fbapi.state_conf} to reset session`)
+        fbapi({ appState: JSON.parse(fs.readFileSync(config.fbapi.state_conf, 'utf8')) }, (err, api) => {
             if (err) {
                 debug(err);
                 return;
@@ -32,8 +32,8 @@ function fblogin(db) {
             rl.question('Enter password: ', password => {
                 fbapi({ email: email, password: password, forceLogin: true }, (err, api) => {
                     function authSuccess() {
-                        fs.writeFileSync(config.fb_state_conf, JSON.stringify(api.getAppState()));
-                        debug(`Wrote app state to ${config.fb_state_conf}`);
+                        fs.writeFileSync(config.fbapi.state_conf, JSON.stringify(api.getAppState()));
+                        debug(`Wrote app state to ${config.fbapi.state_conf}`);
                         fbhak(db, api, config);
                     }
                     if (err) {
