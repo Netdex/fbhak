@@ -1,0 +1,19 @@
+{
+  "name": "fbhak",
+  "version": "0.0.1",
+  "description": "facebook activity tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "netdex",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "debug": "^2.6.8",
+    "express": "^4.15.4",
+    "express-promise-router": "^2.0.0",
+    "facebook-chat-api": "^1.4.0",
+    "pg": "^7.1.0"
+  }
+}
