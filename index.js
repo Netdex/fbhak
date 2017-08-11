@@ -28,33 +28,34 @@ function fblogin(db) {
             input: process.stdin,
             output: process.stdout
         });
+        function auth_success() {
+            fs.writeFileSync(config.fbapi.state_conf, JSON.stringify(api.getAppState()));
+            debug(`Wrote app state to ${config.fbapi.state_conf}`);
+            fbhak(db, api, config);
+        }
+        function fblogin_callback(err, api) {
+            if (err) {
+                switch (err.error) {
+                    case 'login-approval':
+                        rl.question('Enter code: ', code => {
+                            err.continue(code);
+                            auth_success();
+                        });
+                        break;
+                    default:
+                        debug(err);
+                        rl.close();
+                        return;
+                }
+            }
+            else {
+                rl.close();
+                auth_success();
+            }
+        }
         rl.question('Enter email: ', email => {
             rl.question('Enter password: ', password => {
-                fbapi({ email: email, password: password, forceLogin: true }, (err, api) => {
-                    function authSuccess() {
-                        fs.writeFileSync(config.fbapi.state_conf, JSON.stringify(api.getAppState()));
-                        debug(`Wrote app state to ${config.fbapi.state_conf}`);
-                        fbhak(db, api, config);
-                    }
-                    if (err) {
-                        switch (err.error) {
-                            case 'login-approval':
-                                rl.question('Enter code: ', code => {
-                                    err.continue(code);
-                                    authSuccess();
-                                });
-                                break;
-                            default:
-                                debug(err);
-                                rl.close();
-                                return;
-                        }
-                    }
-                    else {
-                        rl.close();
-                        authSuccess();
-                    }
-                });
+                fbapi({ email: email, password: password, forceLogin: true }, fblogin_callback);
 
             });
         });

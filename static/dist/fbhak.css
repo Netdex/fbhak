@@ -1,0 +1,44 @@
+
+html,body {
+    height:100%;
+}
+
+div.user-item {
+    height: 70px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    cursor: pointer;
+}
+div.user-item:hover {
+    background-color: #eee;
+}
+
+div.user-img-holder {
+    float:left;
+    margin-right:10px;
+}
+div.user-details {
+
+}
+img.user-image {
+    object-fit: cover;
+    width: 68px;
+    height: 68px;
+}
+
+p.user-name{
+    font-weight: 900;
+    margin: 0;
+}
+
+p.user-alias{
+    color: gray;
+    margin: 0;
+}
+p.user-url {
+    display: inline-block;
+    font-size: 12px;
+}
+::-webkit-scrollbar {
+    display: none;
+}
